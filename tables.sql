@@ -1,0 +1,42 @@
+-- CREATE DATABASE base_track;
+USE base_track;
+
+-- DROP TABLE company;
+CREATE TABLE IF NOT EXISTS company (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    identifier VARCHAR(255) NOT NULL UNIQUE,
+    address VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telephone VARCHAR(100) NOT NULL,
+    logo INT NULL
+);
+
+-- DROP TABLE user;
+CREATE TABLE IF NOT EXISTS user(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    type SMALLINT NOT NULL,
+    company_id INT NOT NULL,
+    FOREIGN KEY (company_id) REFERENCES company(id)
+);
+
+-- DROP TABLE refresh_token;
+CREATE TABLE IF NOT EXISTS refresh_token (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    user_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE IF NOT EXISTS image (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(255) NOT NULL,
+    company_id INT NOT NULL,
+    FOREIGN KEY (company_id) REFERENCES company(id)
+);
