@@ -1,12 +1,7 @@
 const formatDate = (dateString) => {
-  if (dateString === null) return dateString;
-  const date = new Date(dateString);
-  return date.toLocaleDateString("es-ES", {
-    timeZone: "America/Chicago",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
+  if (!dateString) return "";
+  const [year, month, day] = String(dateString).trim().split("-");
+  return `${day}/${month}/${year}`;
 };
 
-export { formatDate }
+export { formatDate };
